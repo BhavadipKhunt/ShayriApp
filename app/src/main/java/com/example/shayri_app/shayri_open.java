@@ -13,15 +13,24 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
 
         TextView textView;
         String shayri;
-        Button Zoom;
+        String[] shayri1;
+        int k;
+        Button Zoom,swipeleft,swipright;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shayri_open);
         Zoom=findViewById(R.id.Zoom_In_button);
         textView=findViewById(R.id.shayri_show_txt);
+        swipeleft=findViewById(R.id.swiplefr_botton);
+        swipright=findViewById(R.id.swipright_button);
+        k=getIntent().getIntExtra("i1",0);
         shayri=getIntent().getStringExtra("shayri");
+        System.out.println(""+k);
+        shayri1=getIntent().getStringArrayExtra("shayri");
         textView.setText(""+shayri);
+        swipright.setOnClickListener(this);
+        swipeleft.setOnClickListener(this);
         Zoom.setOnClickListener(this);
     }
 
@@ -32,6 +41,10 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
                 {
                     Intent intent = new Intent(shayri_open.this,shayri_grid_view.class);
                     startActivity(intent);
+                }
+                if(view.getId()==swipeleft.getId()) {
+                    k--;
+                            textView.setText(shayri);
                 }
     }
 }
