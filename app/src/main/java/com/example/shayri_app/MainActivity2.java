@@ -395,40 +395,50 @@ public class MainActivity2 extends AppCompatActivity
         Intent intent = new Intent(MainActivity2.this,shayri_open.class);
         if(i==0) {
             intent.putExtra("shayri", loveshayri[i1]);
+            intent.putExtra("s",loveshayri);
             intent.putExtra("i1",i1);
         } else if (i==1) {
             intent.putExtra("shayri", god[i1]);
+            intent.putExtra("s",god);
             intent.putExtra("i1",i1);
         }
         else if (i==2) {
             intent.putExtra("shayri", friend[i1]);
+            intent.putExtra("s",friend);
             intent.putExtra("i1",i1);
         }
         else if (i==3) {
             intent.putExtra("shayri", brother[i1]);
+            intent.putExtra("s",brother);
             intent.putExtra("i1",i1);
         }
         else if (i==4) {
             intent.putExtra("shayri", sadsayri[i1]);
+            intent.putExtra("s",sadsayri);
             intent.putExtra("i1",i1);
         }
         else if (i==5) {
             intent.putExtra("shayri", life[i1]);
+            intent.putExtra("s",life);
             intent.putExtra("i1",i1);
         }
         else if (i==6) {
             intent.putExtra("shayri", comedys[i1]);
+            intent.putExtra("s",comedys);
             intent.putExtra("i1",i1);
         } else if (i==7) {
             intent.putExtra("shayri", rajasthani[i1]);
+            intent.putExtra("s",rajasthani);
             intent.putExtra("i1",i1);
         }
         else if (i==8) {
             intent.putExtra("shayri", rajniti[i1]);
+            intent.putExtra("s",rajniti);
             intent.putExtra("i1",i1);
         }
         else if (i==9) {
             intent.putExtra("shayri", yade[i1]);
+            intent.putExtra("s",yade);
             intent.putExtra("i1",i1);
         }
 

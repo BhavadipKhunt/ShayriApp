@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Edit_shayri_activity">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_weight="4"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:textSize="@dimen/_20sdp"
+        android:textColor="@color/white"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:id="@+id/Edit_text_1"
+        android:background="@color/teal_700"
+        />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_gravity="center"
+        >
+        <Button
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:background="@drawable/change"
+            android:id="@+id/Change_button_1"/>
+        <Button
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:background="@drawable/zoom"
+            android:id="@+id/Zoom_button_2"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="@dimen/_5sdp"
+
+        >
+        <Button
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:text="Background"
+            android:textSize="@dimen/_7sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+
+            android:id="@+id/Background_Button"/>
+        <Button
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:text="Text Color"
+            android:textSize="@dimen/_8sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+
+            android:id="@+id/Textcolor_button"/>
+        <Button
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:text="Share"
+            android:textSize="@dimen/_9sdp"
+            android:id="@+id/Share_button_2"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="@dimen/_5sdp"
+
+        >
+        <Button
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:text="Font"
+            android:textSize="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:id="@+id/Font_button"
+            />
+        <Button
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:text="Emoji"
+            android:textSize="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:id="@+id/Emoji_button"
+           />
+        <Button
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:text="Text Size"
+            android:textSize="@dimen/_9sdp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:id="@+id/Textstyel_button"
+            />
+    </LinearLayout>
+</LinearLayout>

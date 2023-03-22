@@ -13,9 +13,9 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
 
         TextView textView;
         String shayri;
-        String[] shayri1;
+        String[] shayriarr;
         int k;
-        Button Zoom,swipeleft,swipright;
+        Button Zoom,swipeleft,swipright,edit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +27,10 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         k=getIntent().getIntExtra("i1",0);
         shayri=getIntent().getStringExtra("shayri");
         System.out.println(""+k);
-        shayri1=getIntent().getStringArrayExtra("shayri");
+        shayriarr=getIntent().getStringArrayExtra("s");
         textView.setText(""+shayri);
+        edit=findViewById(R.id.Edit_button);
+        edit.setOnClickListener(this);
         swipright.setOnClickListener(this);
         swipeleft.setOnClickListener(this);
         Zoom.setOnClickListener(this);
@@ -42,9 +44,29 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
                     Intent intent = new Intent(shayri_open.this,shayri_grid_view.class);
                     startActivity(intent);
                 }
-                if(view.getId()==swipeleft.getId()) {
-                    k--;
-                            textView.setText(shayri);
+
+                    if (view.getId() == swipeleft.getId()) {
+                        if(k>0) {
+                            k--;
+
+                            textView.setText(shayriarr[k]);
+                        }
+                    }
+
+
+
+                    if(view.getId()==swipright.getId())
+                    {
+                        if(k<shayriarr.length-1) {
+                            k++;
+                            textView.setText(shayriarr[k]);
+                        }
+                    }
+                if(view.getId()==edit.getId())
+                {
+                    Intent intent2=new Intent(shayri_open.this,Edit_shayri_activity.class);
+                    intent2.putExtra("shayri",shayri);
+                    startActivity(intent2);
                 }
     }
 }
