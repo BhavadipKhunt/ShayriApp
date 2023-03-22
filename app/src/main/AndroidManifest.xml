@@ -12,6 +12,9 @@
         android:theme="@style/Theme.Shayri_app"
         tools:targetApi="31">
         <activity
+            android:name=".Frist_page"
+            android:exported="false" />
+        <activity
             android:name=".Edit_shayri_activity"
             android:exported="false" />
         <activity
