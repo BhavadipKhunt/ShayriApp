@@ -2,11 +2,16 @@ package com.example.shayri_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class shayri_open extends AppCompatActivity implements View.OnClickListener
 {
@@ -16,6 +21,7 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         String[] shayriarr;
         int k;
         Button Zoom,swipeleft,swipright,edit;
+        GridView gridView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +40,7 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         swipright.setOnClickListener(this);
         swipeleft.setOnClickListener(this);
         Zoom.setOnClickListener(this);
+
     }
 
     @Override
@@ -41,8 +48,20 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
     {
                 if(view.getId()==Zoom.getId())
                 {
-                    Intent intent = new Intent(shayri_open.this,shayri_grid_view.class);
-                    startActivity(intent);
+                    BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(this);
+                    bottomSheetDialog.setContentView(R.layout.activity_shayri_grid_view);
+                    gridView=bottomSheetDialog.findViewById(R.id.grid_gradient);
+                    BackgroundAdapter backgroundAdapter=new BackgroundAdapter(shayri_open.this,config.gradients);
+
+                    gridView.setAdapter(backgroundAdapter);
+                    bottomSheetDialog.show();
+                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            textView.setBackgroundResource(config.gradients[i]);
+                            bottomSheetDialog.cancel();
+                        }
+                    });
                 }
 
                     if (view.getId() == swipeleft.getId()) {

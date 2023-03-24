@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".shayri_grid_view">
+    android:background="#CA8585">
     <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/Gride_view"
+        android:id="@+id/grid_gradient"
         android:numColumns="2"
-        ></GridView>
+        >
+
+    </GridView>
 
 </LinearLayout>
