@@ -42,8 +42,7 @@
         android:layout_marginTop="@dimen/_100sdp"
 
         app:cardElevation="@dimen/_30sdp"
-        app:cardBackgroundColor="@color/teal_200"
-        android:background="@color/teal_200"
+
         app:cardCornerRadius="@dimen/_20sdp">
         <TextView
             android:layout_width="wrap_content"

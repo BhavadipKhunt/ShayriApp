@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.util.Random;
+
 public class shayri_open extends AppCompatActivity implements View.OnClickListener
 {
 
@@ -20,7 +22,7 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         String shayri;
         String[] shayriarr;
         int k;
-        Button Zoom,swipeleft,swipright,edit;
+        Button Zoom,swipeleft,swipright,edit,change;
         GridView gridView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         Zoom=findViewById(R.id.Zoom_In_button);
         textView=findViewById(R.id.shayri_show_txt);
         swipeleft=findViewById(R.id.swiplefr_botton);
+        change=findViewById(R.id.color_change_icon);
         swipright=findViewById(R.id.swipright_button);
         k=getIntent().getIntExtra("i1",0);
         shayri=getIntent().getStringExtra("shayri");
@@ -37,6 +40,7 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         textView.setText(""+shayri);
         edit=findViewById(R.id.Edit_button);
         edit.setOnClickListener(this);
+        change.setOnClickListener(this);
         swipright.setOnClickListener(this);
         swipeleft.setOnClickListener(this);
         Zoom.setOnClickListener(this);
@@ -63,7 +67,10 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
                         }
                     });
                 }
+                if(view.getId()==change.getId())
+                {
 
+                }
                     if (view.getId() == swipeleft.getId()) {
                         if(k>0) {
                             k--;
