@@ -24,7 +24,7 @@
             android:textAlignment="center"
             android:textStyle="bold"
             android:textSize="@dimen/_25sdp"
-            android:id="@+id/shayti_count_txt"/>
+            android:id="@+id/shayri_count_txt"/>
         <Button
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
@@ -45,7 +45,7 @@
 
         app:cardCornerRadius="@dimen/_20sdp">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_20sdp"
 

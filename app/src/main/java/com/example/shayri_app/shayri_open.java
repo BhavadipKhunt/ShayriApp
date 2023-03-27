@@ -18,7 +18,7 @@ import java.util.Random;
 public class shayri_open extends AppCompatActivity implements View.OnClickListener
 {
 
-        TextView textView;
+        TextView textView,textView1;
         String shayri;
         String[] shayriarr;
         int k;
@@ -32,6 +32,7 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         textView=findViewById(R.id.shayri_show_txt);
         swipeleft=findViewById(R.id.swiplefr_botton);
         change=findViewById(R.id.color_change_icon);
+        textView1=findViewById(R.id.shayri_count_txt);
         swipright=findViewById(R.id.swipright_button);
         k=getIntent().getIntExtra("i1",0);
         shayri=getIntent().getStringExtra("shayri");
@@ -39,6 +40,7 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         shayriarr=getIntent().getStringArrayExtra("s");
         textView.setText(""+shayri);
         edit=findViewById(R.id.Edit_button);
+        textView1.setText(""+(k+1)+"/"+shayriarr.length);
         edit.setOnClickListener(this);
         change.setOnClickListener(this);
         swipright.setOnClickListener(this);
@@ -59,16 +61,18 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
 
                     gridView.setAdapter(backgroundAdapter);
                     bottomSheetDialog.show();
-                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            textView.setBackgroundResource(config.gradients[i]);
-                            bottomSheetDialog.cancel();
-                        }
+                    gridView.setOnItemClickListener((adapterView, view1, i, l) -> {
+                        textView.setBackgroundResource(config.gradients[i]);
+                        bottomSheetDialog.cancel();
+
                     });
                 }
                 if(view.getId()==change.getId())
                 {
+                    int max=9;
+                    int min=0;
+                    int m=new Random().nextInt(max-min)+min;
+                    textView.setBackgroundResource(config.gradients[m]);
 
                 }
                     if (view.getId() == swipeleft.getId()) {
@@ -76,6 +80,7 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
                             k--;
 
                             textView.setText(shayriarr[k]);
+                            textView1.setText(""+(k+1)+"/"+shayriarr.length);
                         }
                     }
 
@@ -86,6 +91,7 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
                         if(k<shayriarr.length-1) {
                             k++;
                             textView.setText(shayriarr[k]);
+                            textView1.setText(""+(k+1)+"/"+shayriarr.length);
                         }
                     }
                 if(view.getId()==edit.getId())

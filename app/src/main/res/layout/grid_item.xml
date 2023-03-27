@@ -5,8 +5,8 @@
     android:layout_gravity="center"
     android:layout_height="match_parent">
     <TextView
-        android:layout_width="@dimen/_180sdp"
-        android:layout_height="@dimen/_150sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
         android:layout_margin="@dimen/_5sdp"
 
         android:id="@+id/grid_item_text"
