@@ -47,11 +47,11 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
             dialog=new BottomSheetDialog(this);
             dialog.setContentView(R.layout.color_background);
             gridView=dialog.findViewById(R.id.backgroun_color_gridview);
-            adapter=new BackgroundAdapter(Edit_shayri_activity.this,config.color);
+            adapter=new BackgroundAdapter(Edit_shayri_activity.this,config.textcolor);
             gridView.setAdapter(adapter);
             dialog.show();
             gridView.setOnItemClickListener((adapterView, view, i, l) -> {
-
+                textView1.setTextColor(config.textcolor[i]);
                 dialog.cancel();
             });
 
