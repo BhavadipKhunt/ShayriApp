@@ -3,6 +3,7 @@ package com.example.shayri_app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,7 +29,7 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_edit_shayri);
         shayriget=getIntent().getStringExtra("shayri");
         textView1=findViewById(R.id.Edit_text_1);
-        textView1.setText(""+shayriget);
+        textView1.setText(shayriget);
         textcolor=findViewById(R.id.Textcolor_button);
         textcolor.setOnClickListener(this);
         backcolor=findViewById(R.id.Background_Button);
@@ -51,7 +52,7 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
             gridView.setAdapter(adapter);
             dialog.show();
             gridView.setOnItemClickListener((adapterView, view, i, l) -> {
-                textView1.setTextColor(config.textcolor[i]);
+                textView1.setTextColor(getResources().getColor(config.textcolor[i]));
                 dialog.cancel();
             });
 
