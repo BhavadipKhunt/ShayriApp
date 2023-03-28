@@ -22,7 +22,7 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         String shayri;
         String[] shayriarr;
         int k;
-        Button Zoom,swipeleft,swipright,edit,change;
+        Button Zoom,swipeleft,swipright,edit,change,share;
         GridView gridView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,8 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         swipright=findViewById(R.id.swipright_button);
         k=getIntent().getIntExtra("i1",0);
         shayri=getIntent().getStringExtra("shayri");
+        share=findViewById(R.id.share_button);
+        share.setOnClickListener(this);
         System.out.println(""+k);
         shayriarr=getIntent().getStringArrayExtra("s");
         textView.setText(""+shayri);
@@ -99,6 +101,10 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
                     Intent intent2=new Intent(shayri_open.this,Edit_shayri_activity.class);
                     intent2.putExtra("shayri",shayri);
                     startActivity(intent2);
+                }
+                if(view.getId()==share.getId())
+                {
+
                 }
     }
 }
