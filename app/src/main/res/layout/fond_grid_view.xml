@@ -3,10 +3,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical">
     <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/fond_gride_view1"
-        android:numColumns="10"></GridView>
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        android:numColumns="5"></GridView>
+</ScrollView>
 
 </LinearLayout>

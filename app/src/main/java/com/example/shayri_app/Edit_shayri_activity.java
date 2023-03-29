@@ -19,8 +19,8 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
 {
     String shayriget;
     TextView textView1;
-    GridView gridView,gridView1;
-    Button textcolor,backcolor,change,zoom;
+    GridView gridView,gridView1,gridView2;
+    Button textcolor,backcolor,change,zoom,font;
     BottomSheetDialog dialog;
     BackgroundAdapter adapter;
     @Override
@@ -38,6 +38,8 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
         change.setOnClickListener(this);
         zoom=findViewById(R.id.Zoom_button_2);
         zoom.setOnClickListener(this);
+        font=findViewById(R.id.Font_button);
+        font.setOnClickListener(this);
     }
 
     @Override
@@ -98,6 +100,15 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
             int min=0;
             int m=new Random().nextInt(max-min)+min;
             textView1.setBackgroundResource(config.gradients[m]);
+        }
+        if(v.getId()==font.getId()) {
+            BottomSheetDialog dialog1 = new BottomSheetDialog(this);
+            dialog1.setContentView(R.layout.fond_grid_view);
+            gridView2 = dialog1.findViewById(R.id.fond_gride_view1);
+            fontadapter fontadapter = new fontadapter(Edit_shayri_activity.this,config.fonts);
+
+            gridView2.setAdapter(fontadapter);
+            dialog1.show();
         }
     }
 }
