@@ -2,6 +2,8 @@ package com.example.shayri_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -21,9 +24,10 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         TextView textView,textView1;
         String shayri;
         String[] shayriarr;
-        int k;
-        Button Zoom,swipeleft,swipright,edit,change,share;
+        int k,position;
+        Button Zoom,swipeleft,swipright,edit,change,share,copy;
         GridView gridView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +40,7 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         swipright=findViewById(R.id.swipright_button);
         k=getIntent().getIntExtra("i1",0);
         shayri=getIntent().getStringExtra("shayri");
-        share=findViewById(R.id.share_button);
+        share=findViewById(R.id.share_button_1);
         share.setOnClickListener(this);
         System.out.println(""+k);
         shayriarr=getIntent().getStringArrayExtra("s");
@@ -48,6 +52,8 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
         swipright.setOnClickListener(this);
         swipeleft.setOnClickListener(this);
         Zoom.setOnClickListener(this);
+        copy=findViewById(R.id.copy_button);
+        copy.setOnClickListener(this);
 
     }
 
@@ -65,6 +71,7 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
                     bottomSheetDialog.show();
                     gridView.setOnItemClickListener((adapterView, view1, i, l) -> {
                         textView.setBackgroundResource(config.gradients[i]);
+                        position=i;
                         bottomSheetDialog.cancel();
 
                     });
@@ -77,7 +84,8 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
                     textView.setBackgroundResource(config.gradients[m]);
 
                 }
-                    if (view.getId() == swipeleft.getId()) {
+                if (view.getId() == swipeleft.getId())
+                {
                         if(k>0) {
                             k--;
 
@@ -85,11 +93,8 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
                             textView1.setText(""+(k+1)+"/"+shayriarr.length);
                         }
                     }
-
-
-
-                    if(view.getId()==swipright.getId())
-                    {
+                if(view.getId()==swipright.getId())
+                {
                         if(k<shayriarr.length-1) {
                             k++;
                             textView.setText(shayriarr[k]);
@@ -100,11 +105,26 @@ public class shayri_open extends AppCompatActivity implements View.OnClickListen
                 {
                     Intent intent2=new Intent(shayri_open.this,Edit_shayri_activity.class);
                     intent2.putExtra("shayri",shayri);
+                    intent2.putExtra("i",position);
                     startActivity(intent2);
                 }
                 if(view.getId()==share.getId())
                 {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_TEXT,textView.getText());
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Shayri");
+                    startActivity(Intent.createChooser(shareIntent, "Share..."));
+                }
+                if(view.getId()==copy.getId())
+                {
+                    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText("Copy",textView.getText());
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(this, "Copied..", Toast.LENGTH_SHORT).show();
 
                 }
+
+
     }
 }
