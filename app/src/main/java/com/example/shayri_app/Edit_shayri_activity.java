@@ -20,14 +20,16 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
     String shayriget;
     TextView textView1;
     GridView gridView,gridView1;
-    Button textcolor,backcolor,change,zoom;
+    Button textcolor,backcolor,change,zoom,share;
     BottomSheetDialog dialog;
     BackgroundAdapter adapter;
+    int i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_shayri);
         shayriget=getIntent().getStringExtra("shayri");
+        i=getIntent().getIntExtra("i",0);
         textView1=findViewById(R.id.Edit_text_1);
         textView1.setText(shayriget);
         textcolor=findViewById(R.id.Textcolor_button);
@@ -37,7 +39,9 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
         change=findViewById(R.id.Change_button_1);
         change.setOnClickListener(this);
         zoom=findViewById(R.id.Zoom_button_2);
+        textView1.setBackgroundResource(config.gradients[i]);
         zoom.setOnClickListener(this);
+        share=findViewById(R.id.Share_button_2);
     }
 
     @Override
