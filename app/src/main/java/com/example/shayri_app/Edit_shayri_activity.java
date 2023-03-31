@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +39,7 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
     TextView textView1;
 
     GridView gridView,gridView1,gridView2;
+    ListView listView;
     Button textcolor,backcolor,change,zoom,font,emoji,textsize,share;
     BottomSheetDialog dialog;
     BackgroundAdapter adapter;
@@ -130,14 +132,14 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
         }
         if(v.getId()==font.getId()) {
             BottomSheetDialog dialog1 = new BottomSheetDialog(this);
-            dialog1.setContentView(R.layout.fond_grid_view);
-            gridView2 = dialog1.findViewById(R.id.fond_gride_view1);
+            dialog1.setContentView(R.layout.font_gride_text);
+            listView = dialog1.findViewById(R.id.list_item_view_emoji);
             type="font";
             fontadapter fontadapter = new fontadapter(Edit_shayri_activity.this,config.fonts,type);
 
-            gridView2.setAdapter(fontadapter);
+            listView.setAdapter(fontadapter);
             dialog1.show();
-            gridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Typeface typeface = Typeface.createFromAsset(getAssets(), config.fonts[i]);
@@ -148,14 +150,14 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
         }
         if(v.getId()==emoji.getId()) {
             BottomSheetDialog dialog1 = new BottomSheetDialog(this);
-            dialog1.setContentView(R.layout.fond_grid_view);
-            gridView2 = dialog1.findViewById(R.id.fond_gride_view1);
+            dialog1.setContentView(R.layout.font_gride_text);
+            listView = dialog1.findViewById(R.id.list_item_view_emoji);
             type="emoji";
             fontadapter fontadapter = new fontadapter(Edit_shayri_activity.this,config.emoji, type);
 
-            gridView2.setAdapter(fontadapter);
+            listView.setAdapter(fontadapter);
 
-            gridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     textView1.setText(""+config.emoji[i]+"\n"+
