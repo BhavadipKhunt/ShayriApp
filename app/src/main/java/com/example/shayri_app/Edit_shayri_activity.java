@@ -3,6 +3,13 @@ package com.example.shayri_app;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -11,9 +18,17 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 public class Edit_shayri_activity extends AppCompatActivity implements View.OnClickListener
@@ -23,9 +38,11 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
     TextView textView1;
 
     GridView gridView,gridView1,gridView2;
-    Button textcolor,backcolor,change,zoom,font,emoji,textsize;
+    Button textcolor,backcolor,change,zoom,font,emoji,textsize,share;
     BottomSheetDialog dialog;
     BackgroundAdapter adapter;
+    String type;
+    File localFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +50,7 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
         shayriget=getIntent().getStringExtra("shayri");
         textView1=findViewById(R.id.Edit_text_1);
         textView1.setText(shayriget);
+        share=findViewById(R.id.Share_button_2);
 
         textcolor=findViewById(R.id.Textcolor_button);
         textcolor.setOnClickListener(this);
@@ -48,6 +66,7 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
         textsize=findViewById(R.id.Textsize_button);
         textsize.setOnClickListener(this);
         emoji.setOnClickListener(this);
+        share.setOnClickListener(this);
     }
 
     @Override
@@ -113,18 +132,29 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
             BottomSheetDialog dialog1 = new BottomSheetDialog(this);
             dialog1.setContentView(R.layout.fond_grid_view);
             gridView2 = dialog1.findViewById(R.id.fond_gride_view1);
-            fontadapter fontadapter = new fontadapter(Edit_shayri_activity.this,config.fonts);
+            type="font";
+            fontadapter fontadapter = new fontadapter(Edit_shayri_activity.this,config.fonts,type);
 
             gridView2.setAdapter(fontadapter);
             dialog1.show();
+            gridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Typeface typeface = Typeface.createFromAsset(getAssets(), config.fonts[i]);
+                   // textView1.setText("bhavadip");
+                    textView1.setTypeface(typeface);
+                }
+            });
         }
         if(v.getId()==emoji.getId()) {
             BottomSheetDialog dialog1 = new BottomSheetDialog(this);
             dialog1.setContentView(R.layout.fond_grid_view);
             gridView2 = dialog1.findViewById(R.id.fond_gride_view1);
-            fontadapter fontadapter = new fontadapter(Edit_shayri_activity.this,config.emoji);
+            type="emoji";
+            fontadapter fontadapter = new fontadapter(Edit_shayri_activity.this,config.emoji, type);
 
             gridView2.setAdapter(fontadapter);
+
             gridView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -142,7 +172,7 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                    textView1.setTextSize(i);
+                    textView1.setTextSize(2,i);
                 }
 
                 @Override
@@ -157,6 +187,56 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
             });
             dialog1.show();
         }
+        if(v.getId()==share.getId())
+        {
+            Bitmap icon = getBitmapFromView(textView1);
+            //Intent share = new Intent(Intent.ACTION_SEND);
+            Intent share =new Intent(Intent.ACTION_SEND);
+            share.setType("image/jpeg");
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            int num=new Random().nextInt(2000);//20230331110105
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+            String currentDateandTime = sdf.format(new Date());
 
+            localFile= new File(config.file.getAbsolutePath() + "/IMG_"+currentDateandTime+".jpg");
+            try
+            {
+                localFile.createNewFile();
+                FileOutputStream fo = new FileOutputStream(localFile);
+                fo.write(bytes.toByteArray());
+                Toast.makeText(Edit_shayri_activity.this,"File Downloaded",Toast.LENGTH_SHORT).show();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+            share.putExtra(Intent.EXTRA_STREAM, Uri.parse(localFile.getAbsolutePath()));
+            startActivity(Intent.createChooser(share, "Share Image"));
+        }
+    }
+    private Bitmap getBitmapFromView(View view1)
+    {
+        //Define a bitmap with the same size as the view
+        Bitmap returnedBitmap = Bitmap.createBitmap(view1.getWidth(), view1.getHeight(), Bitmap.Config.ARGB_8888);
+        //Bind a canvas to it
+        Canvas canvas = new Canvas(returnedBitmap);
+        //Get the view's background
+        Drawable bgDrawable = view1.getBackground();
+        if (bgDrawable != null)
+        {
+            //has background drawable, then draw it on the canvas
+            bgDrawable.draw(canvas);
+        }
+        else
+        {
+            //does not have background drawable, then draw white background on the canvas
+            canvas.drawColor(Color.WHITE);
+        }
+        // draw the view on the canvas
+        view1.draw(canvas);
+        //return the bitmap
+        return returnedBitmap;
     }
 }

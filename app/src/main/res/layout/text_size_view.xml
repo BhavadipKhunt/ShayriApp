@@ -13,6 +13,10 @@
     <SeekBar
         android:layout_width="match_parent"
         android:layout_height="@dimen/_30sdp"
-        android:id="@+id/seekbar_text"></SeekBar>
+        android:id="@+id/seekbar_text"
+        android:min="30"
+        android:max="100">
+
+    </SeekBar>
 
 </LinearLayout>
