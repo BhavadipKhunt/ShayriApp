@@ -37,7 +37,7 @@ public class fontadapter extends BaseAdapter
     public View getView(int i, View view, ViewGroup viewGroup) {
         view= LayoutInflater.from(context).inflate(R.layout.font_gride_text,viewGroup,false);
         textView=view.findViewById(R.id.grid_item_text);
-
+        textView.setText(config.emoji[i]);
         return view;
     }
 }

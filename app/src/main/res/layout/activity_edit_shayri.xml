@@ -9,6 +9,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_weight="4"
+    android:gravity="center_horizontal"
     android:layout_height="wrap_content">
 
     <TextView
@@ -17,6 +18,7 @@
         android:textStyle="bold"
         android:layout_marginTop="@dimen/_15sdp"
         android:textSize="@dimen/_20sdp"
+
         android:textColor="@color/white"
         android:layout_marginHorizontal="@dimen/_15sdp"
         android:id="@+id/Edit_text_1"
@@ -103,7 +105,7 @@
             android:text="Text Size"
             android:textSize="@dimen/_9sdp"
             android:layout_marginHorizontal="@dimen/_10sdp"
-            android:id="@+id/Textstyel_button"
+            android:id="@+id/Textsize_button"
             />
     </LinearLayout>
 </LinearLayout>
