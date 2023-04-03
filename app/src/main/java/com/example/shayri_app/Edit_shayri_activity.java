@@ -139,13 +139,10 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
 
             listView.setAdapter(fontadapter);
             dialog1.show();
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Typeface typeface = Typeface.createFromAsset(getAssets(), config.fonts[i]);
-                   // textView1.setText("bhavadip");
-                    textView1.setTypeface(typeface);
-                }
+            listView.setOnItemClickListener((adapterView, view, i, l) -> {
+                Typeface typeface = Typeface.createFromAsset(getAssets(), config.fonts[i]);
+               // textView1.setText("bhavadip");
+                textView1.setTypeface(typeface);
             });
         }
         if(v.getId()==emoji.getId()) {
@@ -157,13 +154,8 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
 
             listView.setAdapter(fontadapter);
 
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    textView1.setText(""+config.emoji[i]+"\n"+
-                            shayriget+"\n"+config.emoji[i]);
-                }
-            });
+            listView.setOnItemClickListener((adapterView, view, i, l) -> textView1.setText(""+config.emoji[i]+"\n"+
+                    shayriget+"\n"+config.emoji[i]));
             dialog1.show();
         }
 
