@@ -14,8 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_30sdp"
         android:id="@+id/seekbar_text"
-        android:min="30"
-        android:max="100">
+        android:min="20"
+        android:max="80">
 
     </SeekBar>
 
