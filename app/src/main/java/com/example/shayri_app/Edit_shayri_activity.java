@@ -38,7 +38,7 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
     SeekBar seekBar;
     TextView textView1;
 
-    GridView gridView,gridView1,gridView2;
+    GridView gridView,gridView1;
     ListView listView;
     Button textcolor,backcolor,change,zoom,font,emoji,textsize,share;
     BottomSheetDialog dialog;
@@ -75,7 +75,6 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         if(v.getId()==textcolor.getId())
         {
-
             dialog=new BottomSheetDialog(this);
             dialog.setContentView(R.layout.color_background);
             gridView=dialog.findViewById(R.id.backgroun_color_gridview);
@@ -86,15 +85,9 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
                 textView1.setTextColor(getResources().getColor(config.textcolor[i]));
                 dialog.cancel();
             });
-
-
-
-
         }
           if(v.getId()==backcolor.getId())
-        {
-
-            dialog=new BottomSheetDialog(this);
+        {   dialog=new BottomSheetDialog(this);
             dialog.setContentView(R.layout.color_background);
             gridView=dialog.findViewById(R.id.backgroun_color_gridview);
 
@@ -105,9 +98,7 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
                 textView1.setBackgroundResource(config.color[i]);
                 dialog.cancel();
             });
-
-
-        }
+         }
           if(v.getId()==zoom.getId())
           {
               BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(this);
@@ -143,6 +134,7 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
                 Typeface typeface = Typeface.createFromAsset(getAssets(), config.fonts[i]);
                // textView1.setText("bhavadip");
                 textView1.setTypeface(typeface);
+                dialog1.cancel();
             });
         }
         if(v.getId()==emoji.getId()) {
@@ -153,10 +145,15 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
             fontadapter fontadapter = new fontadapter(Edit_shayri_activity.this,config.emoji, type);
 
             listView.setAdapter(fontadapter);
-
-            listView.setOnItemClickListener((adapterView, view, i, l) -> textView1.setText(""+config.emoji[i]+"\n"+
-                    shayriget+"\n"+config.emoji[i]));
             dialog1.show();
+
+            listView.setOnItemClickListener((adapterView, view, i, l) -> {
+                        textView1.setText("" + config.emoji[i] + "\n" +
+                                shayriget + "\n" + config.emoji[i]);
+                dialog1.cancel();
+                    }
+            );
+
         }
 
         if(v.getId()==textsize.getId()) {

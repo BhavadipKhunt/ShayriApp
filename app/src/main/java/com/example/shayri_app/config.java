@@ -12,4 +12,5 @@ public class config
     public static String[] emoji={"😂😅🤣😂😅","😍🥰😘😋😍🥰😘😋","🎂🎂🎂👏👏👏🎂🎂🎂","💥💢💥💢💥💢","👨‍❤️‍👨👧👧👧👧👨‍❤️‍👨"};
     public static String[] fonts={"constan.ttf","constanb.ttf","constani.ttf","constanz.ttf","Inkfree.ttf"};
     public static File file= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);;
+    public static int color1[]={};
 }
