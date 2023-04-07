@@ -1,9 +1,12 @@
 package com.example.shayri_app;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -44,7 +47,9 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
     BottomSheetDialog dialog;
     BackgroundAdapter adapter;
     String type;
+
     File localFile;
+    String permision[]={Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +58,7 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
         textView1=findViewById(R.id.Edit_text_1);
         textView1.setText(shayriget);
         share=findViewById(R.id.Share_button_2);
+
 
         textcolor=findViewById(R.id.Textcolor_button);
         textcolor.setOnClickListener(this);
@@ -69,6 +75,45 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
         textsize.setOnClickListener(this);
         emoji.setOnClickListener(this);
         share.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED || grantResults[1]== PackageManager.PERMISSION_GRANTED)
+        {
+            Bitmap icon = getBitmapFromView(textView1);
+            //Intent share = new Intent(Intent.ACTION_SEND);
+            Intent share =new Intent(Intent.ACTION_SEND);
+            share.setType("image/jpeg");
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            int num=new Random().nextInt(2000);//20230331110105
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+            String currentDateandTime = sdf.format(new Date());
+
+            localFile= new File(config.file.getAbsolutePath() + "/IMG_"+currentDateandTime+".jpg");
+            try
+            {
+                localFile.createNewFile();
+                FileOutputStream fo = new FileOutputStream(localFile);
+                fo.write(bytes.toByteArray());
+                Toast.makeText(Edit_shayri_activity.this,"File Downloaded",Toast.LENGTH_SHORT).show();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+
+            share.putExtra(Intent.EXTRA_STREAM, Uri.parse(localFile.getAbsolutePath()));
+            startActivity(Intent.createChooser(share, "Share Image"));
+        }
+        else
+        {
+            finish();
+        }
+
     }
 
     @Override
@@ -178,33 +223,12 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
             });
             dialog1.show();
         }
+
         if(v.getId()==share.getId())
         {
-            Bitmap icon = getBitmapFromView(textView1);
-            //Intent share = new Intent(Intent.ACTION_SEND);
-            Intent share =new Intent(Intent.ACTION_SEND);
-            share.setType("image/jpeg");
-            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-            icon.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-            int num=new Random().nextInt(2000);//20230331110105
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
-            String currentDateandTime = sdf.format(new Date());
+            requestPermissions(permision,1);
 
-            localFile= new File(config.file.getAbsolutePath() + "/IMG_"+currentDateandTime+".jpg");
-            try
-            {
-                localFile.createNewFile();
-                FileOutputStream fo = new FileOutputStream(localFile);
-                fo.write(bytes.toByteArray());
-                Toast.makeText(Edit_shayri_activity.this,"File Downloaded",Toast.LENGTH_SHORT).show();
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
 
-            share.putExtra(Intent.EXTRA_STREAM, Uri.parse(localFile.getAbsolutePath()));
-            startActivity(Intent.createChooser(share, "Share Image"));
         }
     }
     private Bitmap getBitmapFromView(View view1)
@@ -230,4 +254,5 @@ public class Edit_shayri_activity extends AppCompatActivity implements View.OnCl
         //return the bitmap
         return returnedBitmap;
     }
+
 }
